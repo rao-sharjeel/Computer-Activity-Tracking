@@ -1,0 +1,12 @@
+
+import subprocess
+
+def get_running_processes():
+    cmd = 'powershell "gps | where {$_.MainWindowTitle } | select Description'
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    apps = []
+    for line in proc.stdout:
+        if not line.decode()[0].isspace():
+            apps.append(line)
+    
+    return apps
